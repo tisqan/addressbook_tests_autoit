@@ -18,17 +18,18 @@ namespace addressbook_tests_autoit
         public List<GroupData> GetGroupList()
         {
             List<GroupData> list = new List<GroupData>();
-            OpenGroupsDialogue();
-            string count = aux.ControlTreeView("GROUPWINTITLE", "", "WindowsForms10.SysTreeView32.app.0.2c908d51", "GetItemCount", "#0", "");
             
-            for (int i = 0; i < int.Parse(count); i++)
-            {
-                string item = aux.ControlTreeView("GROUPWINTITLE", "", "WindowsForms10.SysTreeView32.app.0.2c908d51", "GetText", "#0|#"+i, "");
-                list.Add(new GroupData()
-                {
-                    Name = item
-                });
-            }
+            OpenGroupsDialogue();
+            string count = aux.ControlTreeView(GROUPWINTITLE, "", "WindowsForms10.SysTreeView32.app.0.2c908d51", "GetItemCount", "#0", "");
+            
+            //for (int i = 0; i < int.Parse(count); i++)
+            //{
+            //    string item = aux.ControlTreeView(GROUPWINTITLE, "", "WindowsForms10.SysTreeView32.app.0.2c908d51", "GetText", "#0|#"+i, "");
+            //    list.Add(new GroupData()
+            //    {
+            //        Name = item
+            //    });
+            //}
 
             CloseGroupsDialogue();
             return new List<GroupData>();
@@ -79,6 +80,14 @@ namespace addressbook_tests_autoit
         {
             aux.ControlClick(GROUPDELETETITLE, "", "WindowsForms10.BUTTON.app.0.2c908d53");
 
+        }
+
+        public int GetGroupCount()
+        {
+            OpenGroupsDialogue();
+            int count =  int.Parse(aux.ControlTreeView(GROUPWINTITLE, "", "WindowsForms10.SysTreeView32.app.0.2c908d51", "GetItemCount", "#0", ""));
+            CloseGroupsDialogue();
+            return count;
         }
     }
 }

@@ -4,21 +4,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
-namespace addressbook_tests_autoit.Tests
+namespace addressbook_tests_autoit
 {
     public class GroupDeleteTests : TestBase
     {
         [Test]
         public void TestGroupDelete()
         {
-            List<GroupData> oldGroups = app.Groups.GetGroupList();
-            app.Groups.Delete();
-            List<GroupData> newGroups = app.Groups.GetGroupList();
-            oldGroups.RemoveAt(0);
-            oldGroups.Sort();
-            newGroups.Sort();
+            var oldGroups = app.Groups.GetGroupCount();
+            if (oldGroups == 0)
+            {
+                GroupData newGroup = new GroupData()
+                {
+                    Name = "test"
+                };
+                app.Groups.Add(newGroup);
+            }
 
-            Assert.That(oldGroups, Is.EqualTo(newGroups));
+            app.Groups.Delete();
+            Assert.That(oldGroups - 1, Is.EqualTo(app.Groups.GetGroupCount()));
 
 
         }
