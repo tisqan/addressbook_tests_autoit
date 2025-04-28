@@ -17,15 +17,16 @@ namespace addressbook_tests_autoit
         {
             aux = new AutoItX3();
             aux.Run(@"C:\Users\Katrin\Downloads\FreeAddressBookPortable\AddressBook.exe", "", aux.SW_SHOW);
+            aux.WinWait(WINTITLE);
+            aux.WinActivate(WINTITLE);
+            aux.WinWaitActive(WINTITLE);
             groupHelper = new GroupHelper(this);
         }
 
         public void Stop()
         {
             aux.ControlClick(WINTITLE, "", "WindowsForms10.BUTTON.app.0.2c908d510");
-            aux.WinWait(WINTITLE);
-            aux.WinActivate(WINTITLE);
-            aux.WinWaitActive(WINTITLE);
+            
         }
 
 
